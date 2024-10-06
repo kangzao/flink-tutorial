@@ -4,6 +4,7 @@ import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -23,11 +24,11 @@ import org.apache.flink.util.Collector;
 public class WordCountStreamUnboundedDemo {
     public static void main(String[] args) throws Exception {
         //  1. 创建执行环境
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+//        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         // IDEA运行时，也可以看到webui，一般用于本地测试
         // 需要引入一个依赖 flink-runtime-web
         // 在idea运行，不指定并行度，默认就是 电脑的 线程数
-//        StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
 
         //  2. 读取数据： socket   nc -lk 7777  要在本地启动命令
         DataStreamSource<String> socketDS = env.socketTextStream("localhost", 7777);
